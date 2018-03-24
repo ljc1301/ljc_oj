@@ -46,9 +46,9 @@ mysql> grant insert on ljc_oj.judge_queue to 'oj'@'localhost' identified by '_oj
 
 mysql> flush privileges;
 
-sudo pip install mysql-python
+$ sudo pip install mysql-python
 
-python offline/judge.py
+$ python offline/judge.py
 
-python server.py
+$ python server.py
 ```
