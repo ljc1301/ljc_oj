@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}提交{% end %}
+
+{% block content %}
+    <form method="POST" class="form-submit">
+        {% raw xsrf_form_html() %}
+        <h2 style="text-align: center;">提交</h2>
+        <input id="username" value="{{user[0]}}" hidden>
+        题目编号：<input type="text" id="pid" class="form-control" style="width: 10%;height: 40px" value="{{pid}}" required>
+        <small style="color:red;">*注意，题目编号就是题目编号，请不要输入链接中的那个数！</small> <br/>
+        语言：<select class="form-control" style="width: 10%;height: 40px" id="language">
+            {% for i in range(len(languages)) %}
+                <option value="{{i}}">{{languages[i]}}</option>
+            {% end %}
+        </select>
+        代码：
+        <textarea type="textarea" id="code" class="form-control" style="height: 300px;resize: none;" rows="9" maxlength="8192" required></textarea>
+        <br/>
+        <input type="button" value="提交" id="submit" class="btn btn-primary" style="width: 10%" />
+    </form>
+    <script src='{{static_url("js/jquery.min.js")}}'></script>
+    <script src='{{static_url("js/submit.js")}}'></script>
+{% end %}

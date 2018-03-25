@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}状态{% end %}
+
+{% block content %}
+    <h1 style="text-align: center;">状态</h1>
+    <input id='page' value='{{page}}' hidden>
+    <input id='username_' value='{{username}}' hidden>
+    <input id='pid_' value='{{pid}}' hidden>
+    <input id='language_' value='{{language}}' hidden>
+    <input id='result_' value='{{result}}' hidden>
+    {% raw xsrf_form_html() %}
+    <div class="container">
+        <center>
+            <form class="form-inline">
+                用户<input type="text" id="username" class="form-control" value="{{username}}" style="width: 15%;">
+                题目编号<input type="text" id="pid" class="form-control" value="{{pid}}" style="width: 10%;">
+                语言<select class="form-control" id="language" style="width: 15%;">
+                    {% if language=="-1" %}
+                        <option value="-1" selected></option>
+                    {% else %}
+                        <option value="-1"></option>
+                    {% end %}
+                    {% for i in xrange(len(languages)) %}
+                        {% if str(i)==language %}
+                            <option value="{{i}}" selected>{{languages[i]}}</option>
+                        {% else %}
+                            <option value="{{i}}">{{languages[i]}}</option>
+                        {% end %}
+                    {% end %}
+                </select>
+                结果<select class="form-control" id="result" style="width: 25%;">
+                    {% if result=="-1" %}
+                        <option value="-1"></option>
+                    {% else %}
+                        <option value="-1" selected></option>
+                    {% end %}
+                    {% for i in xrange(len(results)) %}
+                        {% if str(i)==result %}
+                            <option value="{{i}}" selected>{{results[i]}}</option>
+                        {% else %}
+                            <option value="{{i}}">{{results[i]}}</option>
+                        {% end %}
+                    {% end %}
+                    {% if result=="-2" %}
+                        <option value="-2" selected>未AC</option>
+                    {% else %}
+                        <option value="-2">未AC</option>
+                    {% end %}
+                </select>
+                <input type="button" value="搜索" id="search" class="btn btn-default" />
+            </form>
+        </center>
+        <div class="col-xs-12">
+            <div class="pull-right small">
+                <ul class="pager">
+                    <li>
+                        <a href="/solutions?username={{username}}&pid={{pid}}&language={{language}}&result={{result}}">首页</a>
+                    </li>
+                    <li>
+                        <a href="/solutions?username={{username}}&pid={{pid}}&language={{language}}&result={{result}}&page={{page+1}}">下一页</a>
+                    </li>
+                </ul>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style='width:8%'>编号</th>
+                        <th style='width:9%'>用户</th>
+                        <th style='width:25%'>题目</th>
+                        <th style='width:12%'>状态</th>
+                        <th style='width:6%'>耗时</th>
+                        <th style='width:8%'>内存</th>
+                        <th style='width:7%'>语言</th>
+                        <th style='width:7%'>代码长度</th>
+                        <th style='width:18%'>提交时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in xrange(20) %}
+                        <tr class="clickable-row" id="row{{'%02d'%i}}" data-href="/404" style="cursor: pointer;" hidden>
+                            <td id="id{{'%02d'%i}}"></td>
+                            <td id="user{{'%02d'%i}}"></td>
+                            <td id="pro{{'%02d'%i}}"></td>
+                            <td id="result{{'%02d'%i}}"></td>
+                            <td id="time{{'%02d'%i}}"></td>
+                            <td id="memory{{'%02d'%i}}"></td>
+                            <td id="lang{{'%02d'%i}}"></td>
+                            <td id="length{{'%02d'%i}}"></td>
+                            <td id="submittime{{'%02d'%i}}"></td>
+                        </tr>
+                    {% end %}
+                </tbody>
+            </table>
+            <div class="pull-right small">
+                <ul class="pager">
+                    <li>
+                        <a href="/solutions?username={{username}}&pid={{pid}}&language={{language}}&result={{result}}">首页</a>
+                    </li>
+                    <li>
+                        <a href="/solutions?username={{username}}&pid={{pid}}&language={{language}}&result={{result}}&page={{page+1}}">下一页</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src='{{static_url("js/jquery.min.js")}}'></script>
+    <script src='{{static_url("js/submissions.js")}}'></script>
+{% end %}

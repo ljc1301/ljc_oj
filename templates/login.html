@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}登录{% end %}
+
+{% block content %}
+    <form class="form-signin">
+        {% raw xsrf_form_html() %}
+        <h2 class="form-signin-heading">请登录</h2>
+        <input type="text" id="username" class="form-control" placeholder="用户名" required autofocus>
+        <input type="password" id="password" class="form-control" placeholder="密码" required>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="remember">
+                 Remember Me
+            </label>
+        </div>
+        <input type="button" value="登录" id="login" class="btn btn-lg btn-primary btn-block"/>
+    </form>
+    <script src='{{static_url("js/jquery.min.js")}}'></script>
+    <script src='{{static_url("js/login.js")}}'></script>
+{% end %}
