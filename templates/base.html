@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href='https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel="stylesheet" type="text/css" href='{{static_url("css/style.css")}}'>
+    <title>{% block title %}{% end %}</title>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/"> 首页 </a></li>
+                    <li><a href="/p"> 题库 </a></li>
+                    <li><a href="/submissions"> 状态 </a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user is None %}
+                        <li><a href="/login"> 登录 </a></li>
+                    {% else %}
+                        <li><a> {{user[0]}} </a></li>
+                        <li><a href="/logout"> 登出 </a></li>
+                    {% end %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br/>
+    <div class="container">
+        {% block content %}
+        {% end %}
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                Produced by ljc.
+            </p>
+        </div>
+    </footer>
+</body>
