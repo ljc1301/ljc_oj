@@ -1,0 +1,18 @@
+{% extends "../base.html" %}
+
+{% block title %}{{p[1]}}{% end %}
+
+{% block content %}
+    <h1 style="text-align: center;">{{p[1]}}</h2>
+    <div style="text-align: center;">
+    <small>题目编号：{{p[6]}}</small> <br/>
+    <small>时间限制：{{p[2]}}ms；空间限制：{{p[3]}}MB</small> <br/>
+    <small>提交数：{{p[4]}}；通过数：{{p[5]}}；AC率：{{'--' if p[5]==0 else '%.2lf%%'%(100.*p[4]/p[5])}}</small> <br/>
+    {% if user %}<a href="/submit?pid={{p[0]}}">提交</a>{% end %}
+    </div>
+    {% block describe %}
+    {% end %}
+    <div style="text-align: center;">
+    {% if user %}<a href="/submit?pid={{p[0]}}">提交</a>{% end %}
+    </div>
+{% end %}
