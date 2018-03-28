@@ -52,5 +52,7 @@ $ cd judge
 
 $ python judge.py
 
+$ cd ..
+
 $ python server.py
 ```
