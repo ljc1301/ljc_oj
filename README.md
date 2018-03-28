@@ -48,7 +48,9 @@ mysql> flush privileges;
 
 $ sudo pip install mysql-python
 
-$ python judge/judge.py
+$ cd judge
+
+$ python judge.py
 
 $ python server.py
 ```
