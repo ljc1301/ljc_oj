@@ -28,7 +28,7 @@ class SubmissionsHandler(tornado.web.RequestHandler):
         p={}
         for i in ps:
             p[i[0]]=i[1]
-        sub=mrd.select_table(table="submissions",column="*",other="order by id desc")
+        sub=mrd.select_table(table="submissions",column="id,username,pid,lang,length,submittime,testcase,result,time,memory",other="order by id desc")
         if self.get_argument('username',''):
             username=self.get_argument('username')
             sub=[i for i in sub if i[1]==username]
@@ -63,8 +63,8 @@ class SubmissionsHandler(tornado.web.RequestHandler):
             res[-1].append(sub[i][1])
             res[-1].append(p[sub[i][2]])
             res[-1].append(sub[i][7])
-            res[-1].append("--" if sub[i][9]==-1 else "%dms"%sub[9])
-            res[-1].append("--" if sub[i][10]==-1 else "%.2lfMB"%(float(sub[10])/1024/1024))
+            res[-1].append("--" if sub[i][8]==-1 else "%dms"%sub[8])
+            res[-1].append("--" if sub[i][9]==-1 else "%.2lfMB"%(float(sub[9])/1024/1024))
             res[-1].append(languages[sub[i][3]])
             res[-1].append("%dB"%sub[i][4])
             res[-1].append(sub[i][5].strftime("%Y-%m-%d %H:%M:%S"))
@@ -88,11 +88,17 @@ class SubmissionHandler(tornado.web.RequestHandler):
 
     def post(self,rid):
         try:
-            data=mrd.select_table(table="submissions",column="result,time,memory,msg",other="where id = "+str(int(rid)))
+            data=mrd.select_table(table="submissions",column="result,time,memory",other="where id = "+str(int(rid)))
             res=[data[0][0],
                 '--' if data[0][1]==-1 else "%dms"%data[0][1],
                 '--' if data[0][2]==-1 else "%.2lfMB"%(float(data[0][2])/1024/1024),
-                "" if not data[0][3] else data[0][3]]
+                ""]
+            try:
+                f=open("./submissions/msg_"+rid+".txt")
+                res[3]=f.read()
+                f.close()
+            except:
+                pass
             self.write(tornado.escape.json_encode(res))
         except:
             pass
