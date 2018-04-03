@@ -74,7 +74,7 @@ class SubmissionHandler(tornado.web.RequestHandler):
     def get(self,rid):
         user=get_user(self)
         try:
-            res=mrd.select_table(table="submissions",column="*",other="where id = "+str(int(rid)))
+            res=mrd.select_table(table="submissions",column="id,username,pid,lang,length,submittime,testcase,result,time,memory",other="where id = "+str(int(rid)))
             p=mrd.select_table(table="problems",column="id,name",other="where id = "+str(res[0][2]))
             if not res:
                 self.render("404.html",user=user)
