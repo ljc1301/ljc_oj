@@ -26,12 +26,12 @@ class SubmitHandler(tornado.web.RequestHandler):
         except:
             self.write("-1")
             return
-        p=mrd.select_table(table="problems",column="*",other="where `index` = '"+pid+"'")
+        p=mrd.select_table(table="problems",column="id",other="where `index` = '"+pid+"'")
         if not p:
             self.write("-1")
             return
         cur.execute("insert into submissions(username,pid,lang,result,length)values('%s',%s,%s,'等待评测',%d)"%(user,p[0][0],lang,len(code)))
-        last=mrd.select_table(table="submissions",column="*",other="where username = '"+user+"' and pid = "+str(p[0][0])+" and lang = "+lang+" and length = "+str(len(code))+" order by id desc limit 1")
+        last=mrd.select_table(table="submissions",column="id",other="where username = '"+user+"' and pid = "+str(p[0][0])+" and lang = "+lang+" and length = "+str(len(code))+" order by id desc limit 1")
         conn.commit()
         self.write(str(last[0][0]))
         f=open("./submissions/"+str(last[0][0])+"."+suffix[int(lang)],"w")
