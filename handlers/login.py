@@ -18,7 +18,7 @@ class LoginHandler(tornado.web.RequestHandler):
         username=self.get_argument("username")
         password=self.get_argument("password")
         remember=self.get_argument("remember")
-        user_infos=mrd.select_table(table="users",column="*",other="where username = '"+username+"'")
+        user_infos=mrd.select_table(table="users",column="id,username,password",other="where username = '"+username+"'")
         if user_infos:
             db_pwd=user_infos[0][2]
             if db_pwd==password:
