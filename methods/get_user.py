@@ -7,7 +7,7 @@ def get_user(s):
     user=s.get_secure_cookie('user')
     if user:
         user=tornado.escape.json_decode(user)
-        user_infos=mrd.select_table(table="users",column="*",other="where username = '"+user[0]+"'")
+        user_infos=mrd.select_table(table="users",column="id,username,password",other="where username = '"+user[0]+"'")
         if user_infos:
             db_pwd=user_infos[0][2]
             if db_pwd!=user[1]:
