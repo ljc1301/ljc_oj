@@ -8,10 +8,15 @@ suffix=(
     "cpp",
     )
 
+lan_short=(
+    "cpp",
+    )
+
 not_judged=(
     "等待评测",
     "正在评测",
     "等待重测",
+    "Unknown Error",
     )
 
 results=(
