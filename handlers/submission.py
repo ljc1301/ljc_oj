@@ -82,8 +82,8 @@ class SubmissionHandler(tornado.web.RequestHandler):
                 f=open("./submissions/"+rid+"."+suffix[int(res[0][3])])
                 code=f.read()
                 f.close()
-                self.render("submission.html",user=user,res=res[0],p=p[0],code=code,languages=languages)
-        except:
+                self.render("submission.html",user=user,res=res[0],p=p[0],code=code,languages=languages,lan=lan_short[res[0][3]])
+        except Exception,e:
             self.render("404.html",user=user)
 
     def post(self,rid):
